@@ -2,3 +2,4 @@
 1130 replace keys medium
 1367 Remove Index Signature 
 3243 FlattenDepth
+4260 AllCombinations

@@ -8,8 +8,9 @@ export {}
 // type Result1 = Fibonacci<3> // 2
 // type Result2 = Fibonacci<8> // 21
 
-type Fibonacci<N extends number, List extends number[] = [0]> = 
+type Fibonacci<N extends number, List extends number[] = [1],CurrentMinus2 extends any[] = [],CurrentMinus1 extends any[] = [1]> = 
 List['length'] extends N ? List: 
-N extends 1? 1:
-N extends 2? 1:
-Fibonacci<List['length'],[]>
+Fibonacci<N,[...List,[...CurrentMinus2,...CurrentMinus1]['length']],CurrentMinus1,[...CurrentMinus2,...CurrentMinus1]>
+
+type Result1 = Fibonacci<3> // 2
+type Result2 = Fibonacci<8> // 21
