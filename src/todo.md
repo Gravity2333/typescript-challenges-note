@@ -10,3 +10,7 @@
 30970 IsFixedStringLiteralType
 34857 Defined Partial Record
 35045 Longest Common Prefix
+
+## hard
+
+1920 pinia
