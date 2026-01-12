@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon -e ts --watch src --legacy-watch --exec ts-node ./src/index.ts"
+    "dev": "npx nodemon -e ts --watch src --legacy-watch --exec ts-node ./src/index.ts",
+    "build": "rimraf dist&&npx tsc"
   },
   "author": "",
   "license": "ISC",

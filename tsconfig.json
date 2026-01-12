@@ -21,19 +21,22 @@
 
     // Other Outputs
     "skipLibCheck": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "declaration": true,
     "declarationMap": false,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "esModuleInterop": true,
     "noEmitOnError": true,
     // "strictPropertyInitialization": true,
     // "noImplicitAny": true,
+    "allowJs": false,
+    "checkJs": false,
     "noImplicitThis": true,
     "experimentalDecorators": true,
     "strict": true,
     "strictPropertyInitialization": false,
+    // "allowSyntheticDefaultImports": true,
   },
-  "include": ["./src"],
-  "exclude": ["node_modules"]
+  "include": ["./src/utils/","./src/index.ts"],
+  "exclude": []
 }
