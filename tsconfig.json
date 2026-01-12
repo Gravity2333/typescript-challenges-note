@@ -35,8 +35,8 @@
     "experimentalDecorators": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    // "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true,
   },
-  "include": ["./src/utils/","./src/index.ts"],
+  "include": ["./src/"],
   "exclude": []
 }
