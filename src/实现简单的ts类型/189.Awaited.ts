@@ -11,9 +11,15 @@ export {}
 
 // type Result = MyAwaited<ExampleType> // string
 
-type MyAwaited<T extends Promise<any>> = T extends Promise<infer R> ? R : never;
+// type MyAwaited<T extends Promise<any>> = T extends Promise<infer R> ? R : never;
 
+
+// type ExampleType = Promise<string>
+
+// type result = MyAwaited<ExampleType> // string
 
 type ExampleType = Promise<string>
 
-type result = MyAwaited<ExampleType> // string
+type MyAwaited<T extends Promise<any>> = T extends Promise<infer V> ? V : never
+
+type Result = MyAwaited<ExampleType> // string

@@ -8,12 +8,21 @@ export {};
 
 // type FunctionParamsType = MyParameters<typeof foo> // [arg1: string, arg2: number]
 
-type Parameters<T extends (...args: any[]) => any> = T extends (
-  ...args: infer P
-) => any
-  ? P
-  : unknown;
+// type Parameters<T extends (...args: any[]) => any> = T extends (
+//   ...args: infer P
+// ) => any
+//   ? P
+//   : unknown;
 
-const foo = (arg1: string, arg2: number): void => {};
+// const foo = (arg1: string, arg2: number): void => {};
 
-type FunctionParamsType = Parameters<typeof foo>; // [arg1: string, arg2: number]
+// type FunctionParamsType = Parameters<typeof foo>; // [arg1: string, arg2: number]
+
+
+
+
+const foo = (arg1: string, arg2: number): void => {}
+
+type MyParameters<F extends (...args: any[]) => any> = F extends (...args: infer P) => any? P:never
+
+type FunctionParamsType = MyParameters<typeof foo> // [arg1: string, arg2: number]

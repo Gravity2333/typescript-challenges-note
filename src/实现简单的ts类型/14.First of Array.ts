@@ -35,3 +35,13 @@ type First3<Arr extends any[]> = Arr extends [infer A, ...rest: any[]]
 
 type head3_1 = First3<arr1>; // expected to be 'a'
 type head3_2 = First3<arr2>; // expected to be 3
+
+
+// type arr12 = ['a', 'b', 'c']
+// type arr22 = [3, 2, 1]
+
+
+// type First22<T extends readonly any[]>  = T extends [infer F,...any[]] ? F : never
+
+// type head12 = First22<arr12> // expected to be 'a'
+// type head22 = First22<arr22> // expected to be 3

@@ -1,4 +1,4 @@
-export {}
+export {};
 /**
  *
  *  不使用 Pick<T, K> ，实现 TS 内置的 Pick<T, K> 的功能。
@@ -35,8 +35,16 @@ type _pickResult = _Pick<
   "age" | "gender"
 >;
 
+type _pickResult1 = _Pick<1, "toExponential">;
 
-type _pickResult1 = _Pick<
-  1,
-  "toExponential"
->;
+type MyPick<O extends any, Keys extends keyof O> = {
+  [k in Keys]: O[k];
+};
+
+type _2pickResult1 = MyPick<1, "toExponential">;
+
+type MyOmit<T, K extends keyof T> = {
+  [k in Exclude<keyof T, K>]: T[k];
+};
+
+type _2epickResult1 = MyOmit<1, "toExponential">;

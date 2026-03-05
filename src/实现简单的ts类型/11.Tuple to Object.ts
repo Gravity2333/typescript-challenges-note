@@ -69,3 +69,11 @@ type result = _TupleToObject<typeof tuple>;
 //     "model X": "model X";
 //     "model Y": "model Y";
 // }
+
+
+
+// T[number]：就是去问 TS：“如果我用任意一个数字去访问这个数组，我能拿到的值是什么类型？”
+type MyTupleToObject<T extends readonly any[]> = {
+  [k in  T[number]]: k
+}
+type result22 = MyTupleToObject<typeof tuple> // expected { 'tesla': 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y'}

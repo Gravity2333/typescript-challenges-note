@@ -38,3 +38,13 @@ type ReadonlyRes = _Readonly<{
 //     readonly age: number;
 //     readonly gender: "male" | "female";
 // }
+
+type MyReadonly<T extends any> = {
+  readonly [k in keyof T]: T[k]
+}
+
+type ReadonlyRes2 = MyReadonly<{
+  name: string;
+  age: number;
+  gender: "male" | "female";
+}>;

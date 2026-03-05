@@ -1,4 +1,4 @@
-export {}
+export {};
 // Implement the JavaScript Array.includes function in the type system. A type takes the two arguments. The output should be a boolean true or false.
 
 // For example:
@@ -6,17 +6,29 @@ export {}
 // type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
 
 // 数组/元组 -> 联合类型
-type ArrToUnion<Arr extends any[]> = Arr[number];
-type red = ArrToUnion<["Kars", "Esidisi", "Wamuu", "Santana"]>;
-// "Kars" | "Esidisi" | "Wamuu" | "Santana
+// type ArrToUnion<Arr extends any[]> = Arr[number];
+// type red = ArrToUnion<["Kars", "Esidisi", "Wamuu", "Santana"]>;
+// // "Kars" | "Esidisi" | "Wamuu" | "Santana
 
-type Includes<Arr extends any[], U> = U extends ArrToUnion<Arr>
-  ? "true"
-  : "false"; // type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
+// type Includes<Arr extends any[], U> = U extends ArrToUnion<Arr>
+//   ? "true"
+//   : "false"; // type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
+
+// type isPillarMen = Includes<["Kars", "Esidisi", "Wamuu", "Santana"], "Dio">; // expected to be `false`
+
+// type isPillarMen1 = Includes<
+//   ["Kars", "Esidisi", "Wamuu", "Santana"],
+//   "Santana"
+// >; // expected to be `true`
+
+type Includes<T extends readonly any[], K> = T extends [infer F, ...infer R]
+  ? F extends K
+    ? true
+    : Includes<R, K>
+  : false;
 
 type isPillarMen = Includes<["Kars", "Esidisi", "Wamuu", "Santana"], "Dio">; // expected to be `false`
 
-type isPillarMen1 = Includes<
-  ["Kars", "Esidisi", "Wamuu", "Santana"],
-  "Santana"
->; // expected to be `true`
+type isPillarMen2 = Includes<["Kars", "Esidisi", "Wamuu", "Santana"], "Kars">; // expected to be `false`
+
+type isPillarMen3 = Includes<["Kars", "Esidisi", "Wamuu", "Santana"], "Wamuu">; // expected to be `false`

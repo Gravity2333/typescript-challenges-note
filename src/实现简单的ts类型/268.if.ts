@@ -7,7 +7,13 @@ export {}
 // type B = If<false, 'a', 'b'> // expected to be 'b'
 
 
-type If<Condition extends true | false,SuccessRes,ErrorRes> = Condition extends true ? SuccessRes : Condition extends false ? ErrorRes : never
+// type If<Condition extends true | false,SuccessRes,ErrorRes> = Condition extends true ? SuccessRes : Condition extends false ? ErrorRes : never
+
+// type A = If<true, 'a', 'b'>  // expected to be 'a'
+// type B = If<false, 'a', 'b'> // expected to be 'b'
+
+
+type If<Condition extends boolean,Value1 extends any,Value2 extends any> = Condition extends true? Value1:Value2
 
 type A = If<true, 'a', 'b'>  // expected to be 'a'
 type B = If<false, 'a', 'b'> // expected to be 'b'
