@@ -5,12 +5,20 @@ export = {};
 
 // type replaced = Replace<'types are fun!', 'fun', 'awesome'> // expected to be 'types are awesome!'
 
+// type Replace<
+//   S extends string,
+//   NeedReplace extends string,
+//   Replaced extends string
+// > = S extends `${infer Prefix}${NeedReplace}${infer Suffix}`
+//   ? `${Prefix}${Replaced}${Suffix}`
+//   : S;
+
+// type replaced = Replace<"types are fun!", "fun", "awesome">; // expected to be 'types are awesome!'
 type Replace<
   S extends string,
-  NeedReplace extends string,
-  Replaced extends string
-> = S extends `${infer Prefix}${NeedReplace}${infer Suffix}`
-  ? `${Prefix}${Replaced}${Suffix}`
-  : S;
+  Target extends string,
+  Dst extends string,
+> = S extends `${infer F}${Target}${infer L}`
+  ?`${ F}${Dst}${ L}`: S
 
 type replaced = Replace<"types are fun!", "fun", "awesome">; // expected to be 'types are awesome!'

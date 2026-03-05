@@ -10,9 +10,24 @@ export {};
 // // 应推导出 `Promise<[number, 42, string]>`
 // const p = PromiseAll([promise1, promise2, promise3] as const)
 
-type PromiseAll<T extends Promise<any>[]> = T extends [...infer promiseResults]
-  ? Promise<promiseResults>
-  : never;
+// type PromiseAll<T extends Promise<any>[]> = T extends [...infer promiseResults]
+//   ? Promise<promiseResults>
+//   : never;
+
+// const promise1 = Promise.resolve(3);
+// const promise2 = 42;
+// const promise3 = new Promise<string>((resolve, reject) => {
+//   setTimeout(resolve, 100, "foo");
+// });
+
+// declare function PromiseAll<T extends any[]>(
+//   ...promises: T[]
+// ): Promise<{
+//   [k in keyof T]: T[k] extends Promise<infer R> ? R : T[k];
+// }>;
+
+// // 应推导出 `Promise<[number, 42, string]>`
+// const p = PromiseAll([promise1, promise2, promise3] as const);
 
 const promise1 = Promise.resolve(3);
 const promise2 = 42;
@@ -20,11 +35,12 @@ const promise3 = new Promise<string>((resolve, reject) => {
   setTimeout(resolve, 100, "foo");
 });
 
-declare function PromiseAll<T extends any[]>(
+type PrimiseValue<T extends any> = T extends Promise<infer V> ? V : T;
+
+declare function PromiseAll<T extends any>(
   ...promises: T[]
 ): Promise<{
-  [k in keyof T]: T[k] extends Promise<infer R> ? R : T[k];
+  [k in keyof T]: PrimiseValue<T[k]>;
 }>;
-
-// 应推导出 `Promise<[number, 42, string]>`
+// expected to be `Promise<[number, 42, string]>`
 const p = PromiseAll([promise1, promise2, promise3] as const);

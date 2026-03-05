@@ -1,4 +1,4 @@
-export {}
+export {};
 /**
  * 不使用 Omit 实现 TypeScript 的 Omit<T, K> 泛型。
 
@@ -19,24 +19,23 @@ const todo: TodoPreview = {
 }
  */ 4;
 
-type _Omit<T, K extends keyof T> = {
-  [k in Exclude<keyof T, K>]: T[k];
-};
+// type _Omit<T, K extends keyof T> = {
+//   [k in Exclude<keyof T, K>]: T[k];
+// };
 
-type OmitResult = _Omit<
-  {
-    name: string;
-    age: number;
-    gender: "male" | "female";
-  },
-  "name"
->;
+// type OmitResult = _Omit<
+//   {
+//     name: string;
+//     age: number;
+//     gender: "male" | "female";
+//   },
+//   "name"
+// >;
 
-
-type OmitResult2 = _Omit<
-  1,
-  "toExponential"
->;
+// type OmitResult2 = _Omit<
+//   1,
+//   "toExponential"
+// >;
 
 // res: type OmitResult2 = {
 //     toString: (radix?: number) => string;
@@ -48,3 +47,19 @@ type OmitResult2 = _Omit<
 //         (locales?: Intl.LocalesArgument, options?: Intl.NumberFormatOptions): string;
 //     };
 // }
+
+interface Todo {
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
+type MyOmit<T extends Record<string, any>, K extends keyof T> = {
+  [k in Exclude<keyof T, K>]: T[k];
+};
+
+type TodoPreview = MyOmit<Todo, "description" | "title">;
+
+const todo: TodoPreview = {
+  completed: false,
+};

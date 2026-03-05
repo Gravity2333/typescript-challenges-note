@@ -5,6 +5,11 @@ export = {}
 
 // type capitalized = Capitalize<'hello world'> // expected to be 'Hello world'
 
-type _Capitalize<S extends string> = S extends `${infer C}${infer rest}`? `${Uppercase<C>}${rest}`:never
+// type _Capitalize<S extends string> = S extends `${infer C}${infer rest}`? `${Uppercase<C>}${rest}`:never
 
-type capitalized = _Capitalize<'hello world'> // expected to be 'Hello world'
+// type capitalized = _Capitalize<'hello world'> // expected to be 'Hello world'
+
+type _Capitalize<S extends string> = S extends `${infer C}${infer R}`? 
+`${Uppercase<S>}${R}`
+:never
+type capitalized = Capitalize<'hello world'> // expected to be 'Hello world'

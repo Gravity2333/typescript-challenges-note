@@ -5,10 +5,12 @@ export = {};
 
 // type trimmed = Trim<'  Hello World  '> // expected to be 'Hello World'
 
-type Trim<S extends string> = S extends ` ${infer LEFT_REST}`
-  ? Trim<LEFT_REST>
-  : S extends `${infer RIGHT_REST} `
-  ? Trim<RIGHT_REST>
-  : S;
+// type Trim<S extends string> = S extends ` ${infer LEFT_REST}`
+//   ? Trim<LEFT_REST>
+//   : S extends `${infer RIGHT_REST} `
+//   ? Trim<RIGHT_REST>
+//   : S;
 
+
+type Trim<S extends string> = S extends `${infer Left} `? Trim<Left>:S
 type trimmed = Trim<"    Hello World        ">; // expected to be 'Hello World'

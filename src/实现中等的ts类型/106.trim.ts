@@ -6,8 +6,17 @@ export = {};
 
 // type trimmed = TrimLeft<'  Hello World  '> // 应推导出 'Hello World  '
 
-type TrimLeft<S extends string> = S extends ` ${infer Rest}`
-  ? TrimLeft<Rest>
-  : S;
+// type TrimLeft<S extends string> = S extends ` ${infer Rest}`
+//   ? TrimLeft<Rest>
+//   : S;
 
-type trimmed = TrimLeft<"  Hello World  ">; // 应推导出 'Hello World  '
+// type trimmed = TrimLeft<"  Hello World  ">; // 应推导出 'Hello World  '
+
+// type TrimLeft<S extends string,Result = ''> = 
+// S extends `${infer F}${infer R}`? F extends ' '? TrimLeft<R,Result>: S: Result
+
+// type trimmed = TrimLeft<'  Hello World  '> // expected to be 'Hello World  '
+
+type Trim<S extends string> = S extends ` ${infer Center} `? Trim<Center>:S
+
+type trimmed = Trim<'  Hello World  '> // expected to be 'Hello World'

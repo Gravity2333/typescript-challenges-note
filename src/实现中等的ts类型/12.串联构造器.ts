@@ -28,20 +28,52 @@ export = {};
 
 // 你可以假设 key 只接受字符串而 value 接受任何类型，你只需要暴露它传递的类型而不需要进行任何处理。同样的 key 只会被使用一次。
 
-interface Chainable<R extends Record<string, any> = {}> {
-  option<K extends string, V extends any>(
-    propName: K extends keyof R ? never : K,
-    propValue: V
-  ): K extends R
-    ? Chainable<R & Omit<R, K> & Record<K, V>>
-    : Chainable<R & Record<K, V>>;
+// interface Chainable<R extends Record<string, any> = {}> {
+//   option<K extends string, V extends any>(
+//     propName: K extends keyof R ? never : K,
+//     propValue: V
+//   ): K extends R
+//     ? Chainable<R & Omit<R, K> & Record<K, V>>
+//     : Chainable<R & Record<K, V>>;
 
-  get: () => R;
-}
+//   get: () => R;
+// }
+
+// declare const config: Chainable;
+
+// const res = config
+//   .option<"name", string>("name", "liuze")
+//   .option<"age", number>("age", 18)
+//   .get();
+
+type Chainable<Config extends Record<string, any> = {}> = {
+  option: <Key extends string, Value extends any>(
+    key: Key,
+    value: Value,
+  ) => Chainable<
+    {
+      [k in keyof Config]: Config[k];
+    } & {
+      [k in Key]: Value;
+    }
+  >;
+
+  get: () => Config;
+};
 
 declare const config: Chainable;
 
-const res = config
-  .option<"name", string>("name", "liuze")
-  .option<"age", number>("age", 18)
+const result = config
+  .option("foo", 123)
+  .option("name", "type-challenges")
+  .option("bar", { value: "Hello World" })
   .get();
+
+// expect the type of result to be:
+interface Result {
+  foo: number;
+  name: string;
+  bar: {
+    value: string;
+  };
+}

@@ -20,24 +20,45 @@ export = {};
 //   todo.description = "barFoo" // Error: cannot reassign a readonly property
 //   todo.completed = true // OK
 
-type PartialReadonly<T, K extends keyof T> = {
-  [p in Exclude<keyof T, K>]: T[p];
-} & { readonly [k in K]: T[k] };
+// type PartialReadonly<T, K extends keyof T> = {
+//   [p in Exclude<keyof T, K>]: T[p];
+// } & { readonly [k in K]: T[k] };
 
-type PartialReadonly2<T, K extends keyof T> = Readonly<Pick<T,K>> & Omit<T,K>
+// type PartialReadonly2<T, K extends keyof T> = Readonly<Pick<T,K>> & Omit<T,K>
 
+// interface Todo {
+//   title: string;
+//   description: string;
+//   completed: boolean;
+// }
+// const todo: PartialReadonly2<Todo, "title" | "description"> = {
+//   title: "Hey",
+//   description: "foobar",
+//   completed: false,
+// };
+
+// todo.title = "Hello"; // Error: cannot reassign a readonly property
+// todo.description = "barFoo"; // Error: cannot reassign a readonly property
+// todo.completed = true; // OK
 
 interface Todo {
   title: string;
   description: string;
   completed: boolean;
 }
-const todo: PartialReadonly2<Todo, "title" | "description"> = {
+
+type MyReadonly2<T extends Record<string, any>, K extends keyof T> = {
+  readonly [k in K]: T[k];
+} & {
+  [k in Exclude<keyof T, K>]: T[k];
+};
+
+const todo: MyReadonly2<Todo, "title" | "description"> = {
   title: "Hey",
   description: "foobar",
   completed: false,
 };
 
-// todo.title = "Hello"; // Error: cannot reassign a readonly property
-// todo.description = "barFoo"; // Error: cannot reassign a readonly property
-// todo.completed = true; // OK
+todo.title = "Hello"; // Error: cannot reassign a readonly property
+todo.description = "barFoo"; // Error: cannot reassign a readonly property
+todo.completed = true; // OK

@@ -24,40 +24,68 @@ export = {};
 
 // type Todo = DeepReadonly<X> // should be same as `Expected`
 
-type ExtractDeepAttr<T> = {
-  [k in keyof T]: T[k] extends object ? k : never;
-}[keyof T];
+// type ExtractDeepAttr<T> = {
+//   [k in keyof T]: T[k] extends object ? k : never;
+// }[keyof T];
 
-type DeepReadonly<
-  T,
-  DeepKey extends keyof T = ExtractDeepAttr<T>,
-  CommonKey extends keyof T = Exclude<keyof T, DeepKey>
-> = Readonly<Record<CommonKey, T[CommonKey]>> & {
-  readonly [k in DeepKey]: DeepReadonly<T[k]>;
-};
+// type DeepReadonly<
+//   T,
+//   DeepKey extends keyof T = ExtractDeepAttr<T>,
+//   CommonKey extends keyof T = Exclude<keyof T, DeepKey>
+// > = Readonly<Record<CommonKey, T[CommonKey]>> & {
+//   readonly [k in DeepKey]: DeepReadonly<T[k]>;
+// };
 
-type SampleDeepReadonly<T> = {
-    readonly [k in keyof T]: T[k] extends Record<string, any>? SampleDeepReadonly<T[k]>: T[k]
+// type SampleDeepReadonly<T> = {
+//     readonly [k in keyof T]: T[k] extends Record<string, any>? SampleDeepReadonly<T[k]>: T[k]
+// }
+
+// type X = {
+//   x: {
+//     a: 1;
+//     b: "hi";
+//   };
+//   y: "hey";
+// };
+
+
+
+
+// type Expected = SampleDeepReadonly<X>;
+// const x: Expected = {
+//     x: {
+//       a: 1,
+//       b: "hi",
+//     },
+//     y: "hey",
+//   };
+
+// //   x.x.a=2
+
+type X = { 
+  x: { 
+    a: 1
+    b: 'hi'
+  }
+  y: 'hey'
 }
 
-type X = {
-  x: {
-    a: 1;
-    b: "hi";
-  };
-  y: "hey";
-};
 
+type Expected = { 
+  readonly x: { 
+    readonly a: 1
+    readonly b: 'hi'
+  }
+  readonly y: 'hey' 
+}
 
+type DeepReadonly<T extends Record<string,any>> = {
+  readonly[k in keyof T]: DeepReadonly<T[k]>
+}
 
+type Expand<O extends Record<string,any>> = O extends infer T ?
+{
+  [k in keyof T]: Expand<T[k]>
+} : never
 
-type Expected = SampleDeepReadonly<X>;
-const x: Expected = {
-    x: {
-      a: 1,
-      b: "hi",
-    },
-    y: "hey",
-  };
-
-//   x.x.a=2
+type Todo = Expand<DeepReadonly<X>> // should be same as `Expected`

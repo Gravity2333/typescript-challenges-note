@@ -17,11 +17,11 @@ export {};
 
 // type MyDog = LookUp<Cat | Dog, 'dog'> // expected to be `Dog`
 
-type LookUp<Obj extends { type: string }, Type extends string> = Obj extends {
-  type: Type;
-}
-  ? Obj
-  : never;
+// type LookUp<Obj extends { type: string }, Type extends string> = Obj extends {
+//   type: Type;
+// }
+//   ? Obj
+//   : never;
 
 interface Cat {
   type: "cat";
@@ -34,4 +34,9 @@ interface Dog {
   color: "brown" | "white" | "black";
 }
 
+type LookUp<T extends Record<string, any>, K extends string> = T extends {
+  type: K;
+}
+  ? T
+  : never;
 type MyDog = LookUp<Cat | Dog, "dog">; // expected to be `Dog`

@@ -11,12 +11,20 @@ export {};
 // type re2 = Pop<arr2> // expected to be [3, 2]
 // 额外：同样，您也可以实现Shift，Push和Unshift吗？
 
-type Pop<Arr extends any[]> = Arr extends [...infer poped, infer last]
-  ? poped
-  : never;
+// type Pop<Arr extends any[]> = Arr extends [...infer poped, infer last]
+//   ? poped
+//   : never;
 
-type arr1 = ["a", "b", "c", "d"];
-type arr2 = [3, 2, 1];
+// type arr1 = ["a", "b", "c", "d"];
+// type arr2 = [3, 2, 1];
 
-type re1 = Pop<arr1>; // expected to be ['a', 'b', 'c']
-type re2 = Pop<arr2>; // expected to be [3, 2]
+// type re1 = Pop<arr1>; // expected to be ['a', 'b', 'c']
+// type re2 = Pop<arr2>; // expected to be [3, 2]
+
+
+
+type arr1 = ['a', 'b', 'c', 'd']
+type arr2 = [3, 2, 1]
+type Pop<Arr extends any[]> = Arr extends [...infer Left, any]?Left: never
+type re1 = Pop<arr1> // expected to be ['a', 'b', 'c']
+type re2 = Pop<arr2> // expected to be [3, 2]
