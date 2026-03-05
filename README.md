@@ -14,4 +14,4 @@
 
 所以大家戏称它为 TypeScript 类型体操（TypeScript Type Gymnastics）。
 
-[`目录`](./目录.md)
+[`目录`](./README_Directory.md)
